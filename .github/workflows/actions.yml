@@ -88,7 +88,7 @@ jobs:
       - name: Scan the SSH key of the remote hos
         run: |
           mkdir -p ~/.ssh
-          ssg-keyscan -t ed25519 ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -t ed25519 ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy to server
         if: github.ref == 'refs/heads/main'
