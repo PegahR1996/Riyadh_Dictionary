@@ -2,6 +2,9 @@ name: CI
 
 on: [push]
 
+env:
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -44,11 +47,6 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-      - name: set lower case owner name
-        run: |
-          echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
-        env:
-          OWNER: '${{ github.repository_owner }}'
 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -78,8 +76,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ OWNER_LC }}/riyadh_dictionary:${{ github.sha }}
-            ${{ github.ref == 'refs/heads/main' && 'ghcr.io/${{ OWNER_LC }}/riyadh_dictionary:latest' }}
+            ghcr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ${{ github.ref == 'refs/heads/main' && 'ghcr.io/${{ env.IMAGE_NAME }}:latest' }}
 
       - name: Deploy to server
         if: github.ref == 'refs/heads/main'
