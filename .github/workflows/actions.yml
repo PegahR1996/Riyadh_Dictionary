@@ -85,6 +85,11 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: org.opencontainers.image.source=${{ github.event.repository.html_url }}
 
+      - name: Scan the SSH key of the remote host
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -t ed25519 ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+
       - name: Deploy to server
         if: github.ref == 'refs/heads/main'
         uses: appleboy/ssh-action@master
