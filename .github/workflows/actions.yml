@@ -85,21 +85,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: org.opencontainers.image.source=${{ github.event.repository.html_url }}
 
-      - name: Scan the SSH key of the remote host
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -t ed25519 ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
-          cat ~/.ssh/known_hosts
-
-      - name: Test SSH connection
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          fingerprint: SHA256:O4B/lwtDGMZgrKL1twPO/eYN+VHPxi1RVUnWvuOCjK8
-          script: whoami
-
       - name: Deploy to server
         if: github.ref == 'refs/heads/main'
         uses: appleboy/ssh-action@master
