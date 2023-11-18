@@ -71,7 +71,6 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          load: true
           tags: |
             ghcr.io/${{ github.repository_owner }}/riyadh_dictionary:${{ github.sha }}
             ${{ github.ref == 'refs/heads/main' && 'ghcr.io/${{ github.repository_owner }}/riyadh_dictionary:latest' }}
