@@ -89,6 +89,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -t ed25519 ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+          cat ~/.ssh/known_hosts
 
       - name: Deploy to server
         if: github.ref == 'refs/heads/main'
