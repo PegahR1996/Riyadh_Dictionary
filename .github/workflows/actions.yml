@@ -83,6 +83,7 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
+          labels: org.opencontainers.image.source=${{ github.event.repository.html_url }}
 
       - name: Deploy to server
         if: github.ref == 'refs/heads/main'
