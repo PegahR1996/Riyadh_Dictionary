@@ -36,17 +36,21 @@
 
 
         <p></p>
-          <form style="" action="/search" method="post" target="_blank">
+          <form id="search" style="" action="/search" method="post" target="_blank">
               <div class="form-group">
                   <label for="searchbox">Input Word</label>
                   <input id="searchbox" name="word" type="text" class="form-control" placeholder="input word">
               </div>
-          <button type="button" class="btn btn-primary" style="">Submit</button>
+          <button type="submit" class="btn btn-primary" style="">Submit</button>
           </form>
           <p></p>
           {% if output %}
           <label for="output">Recommendation</label>
-              <output name="output" id="output" readonly="readonly" class="form-control" for="searchbox">{{ output }}</output>
+              <div contenteditable="false" id="output" readonly="readonly" style="border: solid #ccc; border-radius: 4px" class="container fill-height">
+              {% for word in output %}
+                  {{ word }}<br>
+              {% endfor %}
+              </div>
           {% endif %}
       </div>
 

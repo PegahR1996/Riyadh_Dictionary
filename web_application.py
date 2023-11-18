@@ -14,9 +14,7 @@ def index():
 def search_word():
     # database query needs to go here
     # It currently only prints the input
-    print(request.form)
-    word = request.form['word']
-    output = word
+    output = ['hi', 'mom', '!']
     return render_template("index.html", output=output)
 
 
