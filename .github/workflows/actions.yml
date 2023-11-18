@@ -97,7 +97,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          fingerprint: SHA256:jF7pw5aKC7eLROyDHhxYE69UI21gWAlv0Dq/M6dLtLo
+          fingerprint: SHA256:O4B/lwtDGMZgrKL1twPO/eYN+VHPxi1RVUnWvuOCjK8
           script: whoami
 
       - name: Deploy to server
@@ -107,7 +107,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          fingerprint: SHA256:jF7pw5aKC7eLROyDHhxYE69UI21gWAlv0Dq/M6dLtLo
+          fingerprint: SHA256:O4B/lwtDGMZgrKL1twPO/eYN+VHPxi1RVUnWvuOCjK8
           script: |
             cd /opt/flask_app/
             # remove existing docker-compose.yml file
