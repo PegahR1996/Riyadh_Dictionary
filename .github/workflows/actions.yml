@@ -85,6 +85,11 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: org.opencontainers.image.source=${{ github.event.repository.html_url }}
 
+      - name: Scan the SSH key of the remote hos
+        run: |
+          mkdir -p ~/.ssh
+          ssg-keyscan -t ed25519 ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+
       - name: Deploy to server
         if: github.ref == 'refs/heads/main'
         uses: appleboy/ssh-action@master
@@ -92,6 +97,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_SSH_KEY }}
+          ssh_key_fingerprint: SHA256:OFFMw63NtIL50RhT+l0v2VWuDmZ67Ey8hunaEmpQ4GA
           script: |
             cd /opt/flask_app/
             # remove existing docker-compose.yml file
