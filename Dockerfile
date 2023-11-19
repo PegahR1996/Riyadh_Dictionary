@@ -6,9 +6,17 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends build-essential gcc g++ wget\
-    && pip install --no-cache-dir --upgrade pip \
+    && apt-get install -y --no-install-recommends build-essential gcc g++ wget git\
+    && pip install --upgrade pip setuptools wheel pybind11\
     && rm -rf /var/lib/apt/lists/*
+
+# Download fasttext source codes and install from the source
+RUN git clone https://github.com/facebookresearch/fastText.git \
+    && cd fastText \
+    && pip install . \
+    && cd .. \
+    && rm -rf fastText
+
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt \
     && apt-get purge -y --auto-remove build-essential gcc g++
