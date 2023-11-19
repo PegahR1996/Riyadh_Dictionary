@@ -6,30 +6,14 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends build-essential gcc g++ wget git curl cmake\
-    && pip install --no-cache-dir --upgrade pip \
+    && apt-get install -y --no-install-recommends build-essential gcc g++ wget git\
+    && pip install --no-cache-dir --upgrade pip setuptools wheel\
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -L https://github.com/pybind/pybind11/archive/v2.7.1.tar.gz -o pybind11-2.7.1.tar.gz \
-    && tar xzf pybind11-2.7.1.tar.gz \
-    && cd pybind11-2.7.1 \
-    && mkdir build \
-    && cd build \
-    && cmake .. \
-    && make check -j 4
-
-RUN echo 'export PATH="$PATH:/pybind11-2.7.1/build"' >> ~/.bashrc
-RUN echo 'export PYTHONPATH="$PYTHONPATH:/pybind11-2.7.1/build"' >> ~/.bashrc
+RUN pip install pybind11
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-
-# Download fasttext source codes and install from the source
-RUN git clone https://github.com/facebookresearch/fastText.git \
-    && cd fastText \
-    && mkdir build && cd build \
-    && cmake .. \
-    && make && make install
 
 # Download fasttext model
 RUN wget https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.ar.300.bin.gz \
