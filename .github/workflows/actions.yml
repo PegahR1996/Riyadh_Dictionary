@@ -84,6 +84,8 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: org.opencontainers.image.source=${{ github.event.repository.html_url }}
+          build-args: |
+            SECRET_KEY=${{ secrets.SECRET_KEY }}
 
       - name: Scan the SSH key of the remote host
         run: |

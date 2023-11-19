@@ -12,6 +12,17 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById('search').addEventListener("submit", function (event) {
+        const input = document.getElementById('searchbox').value;
+        if (input === "") {
+            alert("Input is required");
+            event.preventDefault();
+        }
+    });
+});
+</script>
 </head>
 <body>
     <div class="container">
@@ -36,12 +47,16 @@
 
 
         <p></p>
-          <form id="search" style="" action="/search" method="post" target="_blank">
+          <form id="search" style="" action="/search" method="post">
+              {{ form.hidden_tag() }}
               <div class="form-group">
-                  <label for="searchbox">Input Word</label>
-                  <input id="searchbox" name="word" type="text" class="form-control" placeholder="input word">
+                  {{ form.word.label(for="searchbox") }}
+                  {{ form.word(id="searchbox", class="form-control") }}
+                  {% if form.word.errors %}
+                  {{ form.word.errors(class="alert-warning") }}
+                  {% endif %}
               </div>
-          <button type="submit" class="btn btn-primary" style="">Submit</button>
+              {{ form.submit(class="btn btn-primary") }}
           </form>
           <p></p>
           {% if output %}
