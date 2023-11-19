@@ -9,7 +9,7 @@ os.chdir(model_dir)
 
 os.makedirs(model_dir, exist_ok=True)
 
-model_path = fasttext.util.download_model('ar', if_exists='ignore', download_dir=model_dir)
+model_path = fasttext.util.download_model('ar', if_exists='ignore')
 ArabicWE = fasttext.load_model(model_path)
 
 os.chdir(old_dir)
