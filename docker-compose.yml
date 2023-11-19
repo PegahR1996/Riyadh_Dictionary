@@ -6,6 +6,7 @@ services:
     pull_policy: always
     volumes:
       - ./socket:/tmp
+      - ./model_data:/app/models
     environment:
       - FLASK_ENV=production
     restart: unless-stopped
