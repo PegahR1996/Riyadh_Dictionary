@@ -17,4 +17,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["gunicorn", "-w", "2", "--bind", "unix:/tmp/gunicorn.sock", "web_application:app"]
+CMD ["gunicorn", "-w", "1", "--bind", "unix:/tmp/gunicorn.sock", "web_application:app"]
