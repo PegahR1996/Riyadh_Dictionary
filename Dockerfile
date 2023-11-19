@@ -6,21 +6,22 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends build-essential gcc g++ wget git cmake\
-    && pip install --no-cache-dir --upgrade pip setuptools wheel\
+    && apt-get install -y --no-install-recommends build-essential gcc g++ wget git curl cmake\
+    && pip install --no-cache-dir --upgrade pip \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone pybind11 and set it up
-RUN git clone https://github.com/pybind/pybind11.git /pybind11 \
-    && cd /pybind11 \
+RUN curl -L https://github.com/pybind/pybind11/archive/v2.7.1.tar.gz -o pybind11-2.7.1.tar.gz \
+    && tar xzf pybind11-2.7.1.tar.gz \
+    && cd pybind11-2.7.1 \
     && mkdir build \
     && cd build \
     && cmake .. \
     && make check -j 4
 
-COPY requirements.txt .
+RUN echo 'export PATH="$PATH:/pybind11-2.7.1/build"' >> ~/.bashrc
+RUN echo 'export PYTHONPATH="$PYTHONPATH:/pybind11-2.7.1/build"' >> ~/.bashrc
 
-# Edit your requirements.txt to remove 'fasttext' and then run the line below
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Download fasttext source codes and install from the source
