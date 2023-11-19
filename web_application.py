@@ -10,7 +10,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/search/', methods=['POST'])
+@app.route('/search', methods=['POST'])
 def search_word():
     # database query needs to go here
     # It currently only prints the input
