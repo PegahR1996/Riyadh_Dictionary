@@ -1,7 +1,7 @@
 
 import fasttext.util
 import numpy as np
-#fasttext.util.download_model('ar', if_exists='ignore')
+fasttext.util.download_model('ar', if_exists='ignore')
 ArabicWE =fasttext.load_model('cc.ar.300.bin')
 def ArabicWEFunction(Word):
     return [i for i in ArabicWE[Word]]
