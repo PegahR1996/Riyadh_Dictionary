@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.11
+          python-version: '3.10'
 
       - name: Lint with ruff
         run: |
@@ -97,7 +97,6 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          fingerprint: SHA256:O4B/lwtDGMZgrKL1twPO/eYN+VHPxi1RVUnWvuOCjK8
           script: |
             cd /opt/flask_app/
             # remove existing docker-compose.yml file
