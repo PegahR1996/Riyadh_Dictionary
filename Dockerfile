@@ -8,7 +8,9 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update \
     && apt-get install -y --no-install-recommends build-essential gcc g++\
     && pip install --no-cache-dir --upgrade pip setuptools wheel\
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+
+RUN pip install pybind11
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
