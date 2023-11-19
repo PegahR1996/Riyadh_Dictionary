@@ -1,7 +1,12 @@
 import fasttext.util
+import os
 
-fasttext.util.download_model('ar', if_exists='ignore')
-ArabicWE = fasttext.load_model('cc.ar.300.bin')
+model_dir = "/app/models"
+
+os.makedirs(model_dir, exist_ok=True)
+
+model_path = fasttext.util.download_model('ar', if_exists='ignore', download_dir=model_dir)
+ArabicWE = fasttext.load_model(model_path)
 
 
 def ArabicWEFunction(Word):
